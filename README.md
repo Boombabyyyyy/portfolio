@@ -1,4 +1,4 @@
-# azfar.tech — My Corner of the Internet
+# [azfar.codes](https://azfar.codes/) — My Corner of the Internet
 
 > _"I don't always write clean code, but when I do, I make sure the portfolio looks absolutely insane."_
 
@@ -28,7 +28,7 @@ This isn't your average "here's my resume on a webpage" situation. This thing ha
 | Icons | [Lucide React](https://lucide.dev) + [Skill Icons](https://skillicons.dev) |
 | Fonts | Space Grotesk + Inter (via Google Fonts) |
 
-## 🏃 Getting Started
+## Getting Started
 
 ```bash
 # Clone it
