@@ -1,16 +1,27 @@
 "use client";
 import React, { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { MeshDistortMaterial, Float } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
+// ── React Atom Logo ─────────────────────────────────
+// 3 elliptical orbits around a central sphere
+function Orbit({ rotation }: { rotation: [number, number, number] }) {
+    return (
+        <mesh rotation={rotation}>
+            <torusGeometry args={[1.6, 0.02, 16, 80]} />
+            <meshBasicMaterial color="#0AFF9D" transparent opacity={0.5} />
+        </mesh>
+    );
+}
+
 export default function HeroGeo() {
-    const meshRef = useRef<THREE.Mesh>(null);
-    const glowRef = useRef<THREE.Mesh>(null);
+    const groupRef = useRef<THREE.Group>(null);
+    const coreRef = useRef<THREE.Mesh>(null);
     const { pointer } = useThree();
 
     useFrame((state) => {
-        if (!meshRef.current) return;
+        if (!groupRef.current) return;
         const t = state.clock.getElapsedTime();
 
         // Scroll-based rotation
@@ -21,48 +32,39 @@ export default function HeroGeo() {
         const targetRotX = pointer.y * 0.3 + scrollRotation;
         const targetRotY = pointer.x * 0.3 + t * 0.15;
 
-        // Smooth interpolation
-        meshRef.current.rotation.x += (targetRotX - meshRef.current.rotation.x) * 0.05;
-        meshRef.current.rotation.y += (targetRotY - meshRef.current.rotation.y) * 0.05;
+        groupRef.current.rotation.x += (targetRotX - groupRef.current.rotation.x) * 0.05;
+        groupRef.current.rotation.y += (targetRotY - groupRef.current.rotation.y) * 0.05;
 
-        // Scale down as user scrolls past hero
-        const scrollScale = Math.max(0.5, 2.2 - scrollY * 0.001);
-        meshRef.current.scale.setScalar(scrollScale);
+        // Scale down on scroll
+        const scrollScale = Math.max(0.6, 2.2 - scrollY * 0.001);
+        groupRef.current.scale.setScalar(scrollScale);
 
-        if (glowRef.current) {
-            glowRef.current.rotation.copy(meshRef.current.rotation);
-            glowRef.current.scale.setScalar(scrollScale * 0.85);
+        // Core pulse
+        if (coreRef.current) {
+            coreRef.current.scale.setScalar(0.22 + Math.sin(t * 2) * 0.03);
         }
     });
 
     return (
-        <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
-            {/* Main wireframe shape */}
-            <mesh ref={meshRef} scale={2.2}>
-                <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-                <MeshDistortMaterial
-                    color="#0AFF9D"
-                    distort={0.25}
-                    speed={2}
-                    roughness={0.1}
-                    metalness={0.9}
-                    wireframe={true}
-                    transparent
-                    opacity={0.6}
-                />
-            </mesh>
+        <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.5}>
+            <group ref={groupRef} scale={2.2}>
+                {/* Central nucleus */}
+                <mesh ref={coreRef} scale={0.22}>
+                    <sphereGeometry args={[1, 32, 32]} />
+                    <meshBasicMaterial color="#0AFF9D" transparent opacity={0.8} />
+                </mesh>
 
-            {/* Inner glow core */}
-            <mesh ref={glowRef} scale={1.8}>
-                <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-                <meshBasicMaterial color="#0AFF9D" transparent opacity={0.05} />
-            </mesh>
+                {/* 3 orbital rings at different angles — React atom */}
+                <Orbit rotation={[0, 0, 0]} />
+                <Orbit rotation={[Math.PI / 3, 0, Math.PI / 6]} />
+                <Orbit rotation={[-Math.PI / 3, 0, -Math.PI / 6]} />
 
-            {/* Outer glow sphere */}
-            <mesh scale={3.5}>
-                <sphereGeometry args={[1, 16, 16]} />
-                <meshBasicMaterial color="#0AFF9D" transparent opacity={0.02} />
-            </mesh>
+                {/* Subtle glow sphere */}
+                <mesh scale={2.5}>
+                    <sphereGeometry args={[1, 16, 16]} />
+                    <meshBasicMaterial color="#0AFF9D" transparent opacity={0.02} />
+                </mesh>
+            </group>
         </Float>
     );
 }

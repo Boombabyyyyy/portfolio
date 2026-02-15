@@ -1,6 +1,39 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+// Map each skill to its skillicons.dev icon ID
+const iconMap: Record<string, string> = {
+    TypeScript: "ts",
+    JavaScript: "js",
+    Python: "py",
+    "C#": "cs",
+    "C++": "cpp",
+    Dart: "dart",
+    React: "react",
+    "Next.js": "nextjs",
+    "React Native": "react",
+    Flutter: "flutter",
+    "Vue.js": "vue",
+    "ASP.NET Core": "dotnet",
+    Flask: "flask",
+    "Node.js": "nodejs",
+    "AI/ML": "pytorch",
+    GenAI: "ai",
+    NumPy: "py",
+    Pandas: "py",
+    NLP: "ai",
+    Docker: "docker",
+    Kubernetes: "kubernetes",
+    GCP: "gcp",
+    Firebase: "firebase",
+    MSSQL: "mysql",
+    PostgreSQL: "postgres",
+    MongoDB: "mongodb",
+    SQLite: "sqlite",
+    Redis: "redis",
+};
 
 const categories: { name: string; skills: string[] }[] = [
     { name: "Languages", skills: ["TypeScript", "JavaScript", "Python", "C#", "C++", "Dart"] },
@@ -28,12 +61,12 @@ const cardVariant = {
 
 const tagContainer = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } },
+    show: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
 };
 
 const tagItem = {
-    hidden: { opacity: 0, scale: 0.8 },
-    show: { opacity: 1, scale: 1, transition: { type: "spring" as const, damping: 15, stiffness: 200 } },
+    hidden: { opacity: 0, scale: 0.8, y: 10 },
+    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" as const, damping: 15, stiffness: 200 } },
 };
 
 export default function Skills() {
@@ -68,7 +101,7 @@ export default function Skills() {
                             className="glass glass-hover rounded-2xl p-6 transition-all tilt-card"
                             style={{ perspective: "800px" }}
                         >
-                            <h3 className="text-sm font-semibold text-[var(--color-primary-500)] uppercase tracking-wider mb-4">
+                            <h3 className="text-sm font-semibold text-[var(--color-primary-500)] uppercase tracking-wider mb-5">
                                 {cat.name}
                             </h3>
                             <motion.div
@@ -76,16 +109,26 @@ export default function Skills() {
                                 initial="hidden"
                                 whileInView="show"
                                 viewport={{ once: true }}
-                                className="flex flex-wrap gap-2"
+                                className="flex flex-wrap gap-2.5"
                             >
                                 {cat.skills.map((skill, j) => (
-                                    <motion.span
+                                    <motion.div
                                         key={j}
                                         variants={tagItem}
-                                        className="px-3 py-1.5 text-sm text-[#cbd5e1] bg-white/5 rounded-lg border border-white/5 hover:border-[var(--color-primary-500)]/30 hover:bg-[var(--color-primary-500)]/5 hover:text-[var(--color-primary-500)] transition-all cursor-default"
+                                        className="flex items-center gap-2 px-3 py-2 text-sm text-[#cbd5e1] bg-white/5 rounded-xl border border-white/5 hover:border-[var(--color-primary-500)]/30 hover:bg-[var(--color-primary-500)]/5 hover:text-[var(--color-primary-500)] transition-all cursor-default group"
                                     >
-                                        {skill}
-                                    </motion.span>
+                                        {iconMap[skill] && (
+                                            <Image
+                                                src={`https://skillicons.dev/icons?i=${iconMap[skill]}&theme=dark`}
+                                                alt={skill}
+                                                width={20}
+                                                height={20}
+                                                className="rounded-sm group-hover:scale-110 transition-transform"
+                                                unoptimized
+                                            />
+                                        )}
+                                        <span>{skill}</span>
+                                    </motion.div>
                                 ))}
                             </motion.div>
                         </motion.div>

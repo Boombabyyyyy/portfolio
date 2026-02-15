@@ -67,7 +67,7 @@ export default function Hero() {
                         className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold font-[family-name:var(--font-display)] leading-[0.9] tracking-tighter mb-6"
                     >
                         <span className="text-white">Azfar</span>{" "}
-                        <span className="text-gradient">Mustafa</span>
+                        <span className="text-gradient">Faheem</span>
                     </motion.h1>
                 </motion.div>
 
