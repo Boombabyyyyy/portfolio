@@ -5,7 +5,7 @@ export const personalInfo = {
   email: "azfar.faheem@gmail.com",
   phone: "+91 7977573428",
   github: "https://github.com/Boombabyyyyy",
-  linkedin: "https://www.linkedin.com/in/azfar-faheem-m-569022203/",
+  linkedin: "https://www.linkedin.com/in/azfar-faheem-mustafa-365b5517b",
   location: "Mumbai, Maharashtra, India",
   bio: "Technical Lead at Intelliob Technologies with deep expertise in React Native, Full Stack Development, and Data Science. I build high-performance applications and lead engineering teams to deliver scalable solutions.",
   skills: [
