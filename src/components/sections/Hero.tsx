@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import HeroGeo from "@/components/3d/HeroGeo";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, FileDown } from "lucide-react";
 
 export default function Hero() {
     const ref = useRef(null);
@@ -72,17 +72,19 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.div style={{ y: taglineY, opacity }}>
-                    <motion.p
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.35, duration: 0.7 }}
-                        className="text-lg sm:text-xl md:text-2xl text-[#94a3b8] max-w-2xl mx-auto mb-10 leading-relaxed"
+                        className="max-w-2xl mx-auto mb-10"
                     >
-                        <span className="text-white font-medium">Technical Lead</span> building
-                        scalable systems at the intersection of{" "}
-                        <span className="text-[var(--color-primary-500)]">AI</span> and modern
-                        engineering.
-                    </motion.p>
+                        <p className="text-lg sm:text-xl md:text-2xl text-[#94a3b8] leading-relaxed px-6 py-4 rounded-2xl bg-[var(--color-dark-900)]/60 backdrop-blur-md border border-white/5">
+                            <span className="text-white font-medium">Technical Lead</span> building
+                            scalable systems at the intersection of{" "}
+                            <span className="text-[var(--color-primary-500)]">AI</span> and modern
+                            engineering.
+                        </p>
+                    </motion.div>
                 </motion.div>
 
                 <motion.div style={{ y: ctaY, opacity }}>
@@ -105,6 +107,16 @@ export default function Hero() {
                             className="px-8 py-3.5 border border-white/10 text-white rounded-lg hover:bg-white/5 hover:scale-105 transition-all text-sm sm:text-base"
                         >
                             Get In Touch
+                        </a>
+                        <a
+                            href="/Azfar_resume_New.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-cursor="pointer"
+                            className="px-8 py-3.5 border border-[var(--color-primary-500)]/20 text-[var(--color-primary-500)] rounded-lg hover:bg-[var(--color-primary-500)]/10 hover:scale-105 transition-all text-sm sm:text-base inline-flex items-center gap-2"
+                        >
+                            <FileDown size={18} />
+                            Resume
                         </a>
                     </motion.div>
                 </motion.div>

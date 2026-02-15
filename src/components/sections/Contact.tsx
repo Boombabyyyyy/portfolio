@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { personalInfo } from "@/data/portfolio";
-import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUpRight, FileDown } from "lucide-react";
 
 export default function Contact() {
     return (
@@ -40,6 +40,7 @@ export default function Contact() {
                         {[
                             { href: personalInfo.github, icon: Github },
                             ...(personalInfo.linkedin ? [{ href: personalInfo.linkedin, icon: Linkedin }] : []),
+                            { href: "/Azfar_resume_New.pdf", icon: FileDown },
                         ].map(({ href, icon: Icon }, i) => (
                             <motion.a
                                 key={i}
